@@ -1220,6 +1220,10 @@ body {
         transform: rotate(180deg);
     }
 
+    .tabletop-half.p2-half {
+        transform: rotate(180deg);
+    }
+
     .tabletop-divider {
         height: 2px;
         background: var(--border);
