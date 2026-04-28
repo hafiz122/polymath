@@ -1,94 +1,156 @@
-# PolyMath — Polygon Speed Math Game
+# PolyMath
 
-A competitive, real-time speed math game where players race to solve polygon geometry problems. Built with FastAPI and WebSockets.
+A no-nonsense, real-time speed math game where you race your friends to solve polygon geometry problems. Fastest brain wins.
+
+Built because math class was too slow and multiplayer games had too many ads.
+
+---
+
+## What is this?
+
+You and your friends join a room. Someone hits **Start**. A polygon pops up with a missing angle, or a question about interior angles, or some other geometry trick. Everyone races to pick the right answer. First one gets the most points. Get it wrong and your streak resets to zero. Cry.
+
+There's also a **2-player mode on one phone** — flip it tabletop-style, sit across from each other, and tap your half of the screen. Great for road trips, cafés, or proving you're smarter than your sibling.
+
+---
 
 ## Features
 
-- **Real-time multiplayer** — Create or join rooms, compete live against friends
-- **Polygon topics** — Missing angles, interior/exterior angles, angle sums, polygon identification
-- **Beautiful SVG diagrams** — Clean, animated polygon drawings with labeled angles
-- **LaTeX math rendering** — All math text rendered in true LaTeX font via KaTeX
-- **Speed scoring** — Faster correct answers earn more points + streak bonuses
-- **Live leaderboard** — Watch scores update in real-time as you play
-- **Responsive design** — Works on desktop and mobile
+- **Real-time multiplayer** — Create a room, share the code, play live
+- **WebSocket rooms** — No polling, no lag, just instant updates
+- **Polygon problems** — Triangles, quadrilaterals, regular polygons, angle sums, missing angles
+- **SVG diagrams** — Clean polygon drawings generated on the fly, no images to load
+- **LaTeX math** — KaTeX renders all math beautifully (no blurry screenshots)
+- **Speed scoring** — 100 points base, up to +200 for speed, +50 for streaks
+- **Live leaderboard** — Watch your friends' scores update in real time
+- **Tabletop mode** — Play 2-player arithmetic on one phone, split-screen rotated 180°
+- **Timer toggle** — Host can disable the timer for chill practice rounds
+- **Brutalist design** — Thick borders, pure white, burnt orange accent. No gradients. No soft shadows. Zero border-radius.
 
-## Tech Stack
+---
 
-| Layer | Technology |
-|-------|-----------|
-| Backend | FastAPI + native WebSockets |
-| Frontend | Jinja2 templates, vanilla JS, KaTeX |
-| Diagrams | SVG (generated server-side in Python) |
-| Styling | Custom CSS, responsive grid/flexbox |
+## Play it now
 
-## Quick Start
+### Online (Railway)
+👉 **[polymath.up.railway.app](https://polymath.up.railway.app)** *(or your deployed URL)*
 
-### 1. Install dependencies
-
-```bash
-uv pip install -r requirements.txt
-```
-
-Or with pip:
+### Local
 
 ```bash
+# Install dependencies
 pip install -r requirements.txt
-```
 
-### 2. Run the server
-
-```bash
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-```
-
-Or:
-
-```bash
+# Run the server
 python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+# Open http://localhost:8000
 ```
 
-### 3. Play
+---
 
-Open `http://localhost:8000` in your browser.
+## How to play
 
-1. Enter your name and create a room (or join with a room code)
-2. Invite friends by sharing the room code
-3. The host clicks **Start Game**
-4. Solve polygon problems as fast as you can!
+### Multiplayer (online)
 
-## Game Rules
+1. Enter your name → **Create Room**
+2. Copy the room code and share it
+3. Your friends join with the code
+4. Host clicks **Start Game**
+5. Solve as fast as possible. Don't choke.
 
-- Each game has a configurable number of rounds (default: 10)
-- You have a limited time per question (default: 20 seconds)
-- Correct answers earn **100 base points**
-- **Speed bonus**: up to +200 points for lightning-fast answers
-- **Streak bonus**: +10 per consecutive correct answer (max +50)
-- The player with the highest score at the end wins
+### 2-Player (same phone)
 
-## Problem Types
+1. Go to **Modes**
+2. Pick Addition, Subtraction, Multiplication, or Division
+3. Set player names and round count
+4. Put the phone flat on the table between you
+5. Each player taps their half of the screen
 
-1. **Missing angle in a triangle/quadrilateral** — Calculate the unknown angle
-2. **Regular polygon interior angle** — Find each interior angle of a regular polygon
-3. **Exterior angle** — Find each exterior angle of a regular polygon
-4. **Angle sum** — Find the sum of interior angles (or find sides from the sum)
-5. **Polygon name** — Identify the polygon from its angle properties
-6. **Sides from angle** — Find the number of sides given the interior angle
+**Controls (desktop keyboard):**
+- Player 1: `Q` `W` `E` `R`
+- Player 2: `U` `I` `O` `P`
 
-## Project Structure
+---
+
+## Scoring
+
+| Action | Points |
+|--------|--------|
+| Correct answer | 100 base |
+| Speed bonus | Up to +200 (faster = more) |
+| Streak bonus | +10 per consecutive correct, max +50 |
+| Wrong answer | 0. Streak resets. Shame. |
+
+---
+
+## Problem types
+
+- **Missing angle** — Triangle or quadrilateral with one angle hidden
+- **Regular interior angle** — What's each angle in a regular polygon?
+- **Exterior angle** — Same deal, but outside
+- **Angle sum** — Find the total interior angles (or work backwards from the sum)
+- **Polygon name** — "I have 1080° total. What am I?"
+- **Sides from angle** — "Each interior angle is 140°. How many sides?"
+
+---
+
+## Tech stack
+
+| Thing | What we used | Why |
+|-------|-------------|-----|
+| Backend | FastAPI + native WebSockets | Fast, async, no extra dependencies |
+| Frontend | Jinja2 + vanilla JS | No build step, no framework bloat |
+| Math rendering | KaTeX | Real LaTeX fonts, instant render |
+| Diagrams | SVG (Python-generated) | Sharp at any size, no image assets |
+| Styling | Custom CSS | Brutalist aesthetic, full control |
+
+---
+
+## Project structure
 
 ```
 interactive-math/
-├── main.py              # FastAPI app, HTTP routes, WebSocket handler
-├── requirements.txt     # Python dependencies
+├── main.py              # FastAPI app, routes, WebSocket handler
+├── requirements.txt     # Python deps
+├── render.yaml          # Railway deployment config
 ├── game/
-│   ├── manager.py       # Room & game state management
-│   ├── generator.py     # Problem generator
+│   ├── manager.py       # Room state, game loop, scoring
+│   ├── generator.py     # Problem generator with 6 question types
 │   └── renderer.py      # SVG polygon diagram builder
 ├── static/
-│   ├── css/style.css    # Styles
-│   └── js/game.js       # WebSocket client & game UI
+│   ├── css/style.css    # Brutalist design system
+│   ├── js/game.js       # WebSocket client (multiplayer)
+│   └── js/modes.js      # 2-player local game engine
 └── templates/
-    ├── base.html        # Base layout with KaTeX
-    ├── index.html       # Landing page
-    └── room.html        # Lobby + game + results
+    ├── base.html        # Layout with KaTeX
+    ├── index.html       # Landing + room forms
+    ├── room.html        # Lobby → game → results
+    ├── modes.html       # 2-player tabletop mode
+    └── pricing.html     # (we have tiers, why not)
 ```
+
+---
+
+## Deploy your own
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/...)
+
+Or manually:
+
+1. Fork this repo
+2. Create a Railway project → Deploy from GitHub repo
+3. Railway auto-detects Python, sets the build command
+4. Add environment variable: `PORT = 8000`
+5. Deploy
+
+Free tier ($5 credit) is enough for light usage.
+
+---
+
+## License
+
+MIT — do whatever you want. Just don't sell it back to your math teacher.
+
+---
+
+*Built with caffeine, stubbornness, and a refusal to use React.*
