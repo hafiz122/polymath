@@ -1204,7 +1204,7 @@ body {
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
-        padding: 0.25rem 0.75rem 0.75rem;
+        padding: 0.5rem 0.75rem;
         min-height: 0;
     }
 
@@ -1218,6 +1218,10 @@ body {
 
     .tabletop-half.p1-half {
         transform: rotate(180deg);
+    }
+
+    .tabletop-half.p1-half .tabletop-hud {
+        flex-direction: column-reverse;
     }
 
     .tabletop-divider {
