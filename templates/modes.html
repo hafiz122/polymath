@@ -50,6 +50,7 @@
                 <p><strong>Controls (Desktop):</strong></p>
                 <p>Player 1: <kbd>Q</kbd> <kbd>W</kbd> <kbd>E</kbd> <kbd>R</kbd></p>
                 <p>Player 2: <kbd>U</kbd> <kbd>I</kbd> <kbd>O</kbd> <kbd>P</kbd></p>
+                <p><strong>Scoring:</strong> Correct = 100pts + streak. Wrong = opponent steals 80% of your score!</p>
             </div>
             <button id="start-local-btn" class="btn btn-primary btn-large">Start Game</button>
             <button id="back-to-modes-btn" class="btn btn-secondary">Back</button>
@@ -95,15 +96,17 @@
                 <!-- P1 half (normal orientation) -->
                 <div class="tabletop-half p1-half">
                     <div class="tabletop-options" id="tt-options-top"></div>
-                    <div class="tabletop-player">
-                        <span class="tabletop-player-name" id="tt-p1-name">P1</span>
-                        <span class="tabletop-player-score" id="tt-p1-score">0</span>
-                        <span class="tabletop-player-streak" id="tt-p1-streak"></span>
-                    </div>
-                    <div class="tabletop-problem" id="tt-problem-top">24 + 17 = ?</div>
-                    <div class="tabletop-feedback" id="tt-feedback-top"></div>
-                    <div class="tabletop-timer-bg">
-                        <div class="tabletop-timer-bar" id="tt-timer-top"></div>
+                    <div class="tabletop-hud">
+                        <div class="tabletop-problem" id="tt-problem-top">24 + 17 = ?</div>
+                        <div class="tabletop-feedback" id="tt-feedback-top"></div>
+                        <div class="tabletop-player">
+                            <span class="tabletop-player-name" id="tt-p1-name">P1</span>
+                            <span class="tabletop-player-score" id="tt-p1-score">0</span>
+                            <span class="tabletop-player-streak" id="tt-p1-streak"></span>
+                        </div>
+                        <div class="tabletop-timer-bg">
+                            <div class="tabletop-timer-bar" id="tt-timer-top"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -112,15 +115,17 @@
                 <!-- P2 half (rotated 180°) -->
                 <div class="tabletop-half p2-half">
                     <div class="tabletop-options" id="tt-options-bottom"></div>
-                    <div class="tabletop-player">
-                        <span class="tabletop-player-streak" id="tt-p2-streak"></span>
-                        <span class="tabletop-player-score" id="tt-p2-score">0</span>
-                        <span class="tabletop-player-name" id="tt-p2-name">P2</span>
-                    </div>
-                    <div class="tabletop-problem" id="tt-problem-bottom">24 + 17 = ?</div>
-                    <div class="tabletop-feedback" id="tt-feedback-bottom"></div>
-                    <div class="tabletop-timer-bg">
-                        <div class="tabletop-timer-bar" id="tt-timer-bottom"></div>
+                    <div class="tabletop-hud">
+                        <div class="tabletop-problem" id="tt-problem-bottom">24 + 17 = ?</div>
+                        <div class="tabletop-feedback" id="tt-feedback-bottom"></div>
+                        <div class="tabletop-player">
+                            <span class="tabletop-player-streak" id="tt-p2-streak"></span>
+                            <span class="tabletop-player-score" id="tt-p2-score">0</span>
+                            <span class="tabletop-player-name" id="tt-p2-name">P2</span>
+                        </div>
+                        <div class="tabletop-timer-bg">
+                            <div class="tabletop-timer-bar" id="tt-timer-bottom"></div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -349,13 +349,19 @@
             els.ttFeedbackBottom.textContent = `${p.name} correct! +${100 + streakBonus}`;
             els.ttFeedbackBottom.className = 'tabletop-feedback correct-feedback';
         } else {
-            const p = players[playerNum];
-            p.streak = 0;
-            els.feedback.textContent = `${p.name} wrong! Answer: ${currentProblem.answer}`;
+            const wrongPlayer = players[playerNum];
+            const otherPlayerNum = playerNum === 1 ? 2 : 1;
+            const stealingPlayer = players[otherPlayerNum];
+            const stolenAmount = Math.floor(wrongPlayer.score * 0.8);
+            wrongPlayer.score -= stolenAmount;
+            stealingPlayer.score += stolenAmount;
+            wrongPlayer.streak = 0;
+            const msg = `${wrongPlayer.name} wrong! ${stealingPlayer.name} steals ${stolenAmount} pts!`;
+            els.feedback.textContent = msg;
             els.feedback.className = 'local-feedback wrong-feedback';
-            els.ttFeedbackTop.textContent = `${p.name} wrong! Answer: ${currentProblem.answer}`;
+            els.ttFeedbackTop.textContent = msg;
             els.ttFeedbackTop.className = 'tabletop-feedback wrong-feedback';
-            els.ttFeedbackBottom.textContent = `${p.name} wrong! Answer: ${currentProblem.answer}`;
+            els.ttFeedbackBottom.textContent = msg;
             els.ttFeedbackBottom.className = 'tabletop-feedback wrong-feedback';
         }
 
