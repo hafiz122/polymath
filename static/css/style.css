@@ -1216,12 +1216,13 @@ body {
         width: 100%;
     }
 
-    .tabletop-half.p1-half {
+    .tabletop-half.p2-half {
         transform: rotate(180deg);
     }
 
-    .tabletop-half.p1-half .tabletop-hud {
-        flex-direction: column-reverse;
+    .tabletop-half.p1-half,
+    .tabletop-half.p2-half {
+        transform-origin: center;
     }
 
     .tabletop-divider {
