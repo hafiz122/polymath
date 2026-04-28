@@ -1218,10 +1218,7 @@ body {
 
     .tabletop-half.p1-half {
         transform: rotate(180deg);
-    }
-
-    .tabletop-half.p2-half {
-        transform: rotate(180deg);
+        flex-direction: column-reverse;
     }
 
     .tabletop-divider {
