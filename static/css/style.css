@@ -1220,15 +1220,6 @@ body {
         transform: rotate(180deg);
     }
 
-    .tabletop-half.p1-half .tabletop-options {
-        order: 2;
-    }
-
-    .tabletop-half.p1-half .tabletop-hud {
-        order: 1;
-        flex-direction: column-reverse;
-    }
-
     .tabletop-divider {
         height: 2px;
         background: var(--border);
