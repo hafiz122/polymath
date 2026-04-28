@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}PolyMath - Polygon Speed Math Game{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1 class="hero-title">Polygon <span class="accent">Speed Math</span></h1>
+    <p class="hero-subtitle">Race against others to solve polygon geometry problems. Fastest mind wins.</p>
+</section>
+
+<section class="cards-container">
+    <div class="card create-card">
+        <h2>Create a Room</h2>
+        <p>Host a new game and invite friends with a room code.</p>
+        <form action="/create-room" method="post" class="game-form">
+            <div class="form-group">
+                <label for="create-name">Your Name</label>
+                <input type="text" id="create-name" name="player_name" required maxlength="20" placeholder="Enter your name">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="create-rounds">Rounds</label>
+                    <input type="number" id="create-rounds" name="rounds" value="10" min="3" max="30">
+                </div>
+                <div class="form-group">
+                    <label for="create-time">Seconds per Question</label>
+                    <input type="number" id="create-time" name="time_per_question" value="20" min="5" max="120">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="create-difficulty">Difficulty</label>
+                    <select id="create-difficulty" name="difficulty">
+                        <option value="1">Easy</option>
+                        <option value="2">Medium</option>
+                        <option value="3">Hard</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <div class="form-check">
+                        <input type="checkbox" id="create-timer" checked>
+                        <input type="hidden" name="use_timer" id="timer-hidden" value="true">
+                        <label for="create-timer">Use timer</label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-large">Create Room</button>
+        </form>
+    </div>
+
+    <div class="divider">or</div>
+
+    <div class="card join-card">
+        <h2>Join a Room</h2>
+        <p>Enter a room code to jump into an existing game.</p>
+        <form action="/join-room" method="post" class="game-form">
+            <div class="form-group">
+                <label for="join-name">Your Name</label>
+                <input type="text" id="join-name" name="player_name" required maxlength="20" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="join-code">Room Code</label>
+                <input type="text" id="join-code" name="room_code" required maxlength="8" placeholder="e.g. ABC12345" style="text-transform:uppercase;">
+            </div>
+            <button type="submit" class="btn btn-secondary btn-large">Join Room</button>
+        </form>
+    </div>
+</section>
+
+{% if error %}
+<div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+<section class="how-to-play">
+    <h2>How to Play</h2>
+    <ol>
+        <li><strong>Create or Join</strong> a room with your friends.</li>
+        <li><strong>Wait</strong> in the lobby until the host starts the game.</li>
+        <li><strong>Solve</strong> polygon problems as fast as you can.</li>
+        <li><strong>Earn points</strong> for correct answers. Faster answers score more.</li>
+        <li><strong>Climb</strong> the live leaderboard and fight for first place.</li>
+    </ol>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    const timerCb = document.getElementById('create-timer');
+    const timerHidden = document.getElementById('timer-hidden');
+    if (timerCb && timerHidden) {
+        timerCb.addEventListener('change', function() {
+            timerHidden.value = this.checked ? 'true' : 'false';
+        });
+    }
+</script>
+{% endblock %}

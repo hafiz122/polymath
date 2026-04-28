@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}Modes - PolyMath{% endblock %}
+
+{% block content %}
+<div id="modes-app">
+    <!-- Mode Selection -->
+    <section id="mode-select" class="screen">
+        <div class="hero">
+            <h1 class="hero-title">Pick a <span class="accent">Mode</span></h1>
+            <p class="hero-subtitle">2 players. 1 device. Race to answer.</p>
+        </div>
+        <div class="mode-grid">
+            <button class="mode-card" data-mode="addition">
+                <span class="mode-icon">+</span>
+                <span class="mode-name">Addition</span>
+            </button>
+            <button class="mode-card" data-mode="subtraction">
+                <span class="mode-icon">-</span>
+                <span class="mode-name">Subtraction</span>
+            </button>
+            <button class="mode-card" data-mode="multiplication">
+                <span class="mode-icon">×</span>
+                <span class="mode-name">Multiplication</span>
+            </button>
+            <button class="mode-card" data-mode="division">
+                <span class="mode-icon">÷</span>
+                <span class="mode-name">Division</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Setup -->
+    <section id="mode-setup" class="screen hidden">
+        <div class="setup-panel">
+            <h2>Setup</h2>
+            <div class="form-group">
+                <label for="p1-name">Player 1 Name</label>
+                <input type="text" id="p1-name" value="Player 1" maxlength="12">
+            </div>
+            <div class="form-group">
+                <label for="p2-name">Player 2 Name</label>
+                <input type="text" id="p2-name" value="Player 2" maxlength="12">
+            </div>
+            <div class="form-group">
+                <label for="rounds-select">Rounds</label>
+                <input type="number" id="rounds-select" value="10" min="5" max="50" step="5">
+            </div>
+            <div class="setup-hint">
+                <p><strong>Controls (Desktop):</strong></p>
+                <p>Player 1: <kbd>Q</kbd> <kbd>W</kbd> <kbd>E</kbd> <kbd>R</kbd></p>
+                <p>Player 2: <kbd>U</kbd> <kbd>I</kbd> <kbd>O</kbd> <kbd>P</kbd></p>
+            </div>
+            <button id="start-local-btn" class="btn btn-primary btn-large">Start Game</button>
+            <button id="back-to-modes-btn" class="btn btn-secondary">Back</button>
+        </div>
+    </section>
+
+    <!-- Game -->
+    <section id="mode-game" class="screen hidden">
+        <!-- Desktop view -->
+        <div id="desktop-game-view">
+            <div class="local-game-header">
+                <div class="local-player" id="p1-panel">
+                    <span class="local-player-name" id="p1-display-name">P1</span>
+                    <span class="local-player-score" id="p1-score">0</span>
+                    <span class="local-player-streak" id="p1-streak"></span>
+                </div>
+                <div class="local-round-info">
+                    <span class="round-label">Round</span>
+                    <span class="round-number" id="local-round-num">1</span>
+                    <span class="round-total" id="local-round-total">/ 10</span>
+                </div>
+                <div class="local-player" id="p2-panel">
+                    <span class="local-player-name" id="p2-display-name">P2</span>
+                    <span class="local-player-score" id="p2-score">0</span>
+                    <span class="local-player-streak" id="p2-streak"></span>
+                </div>
+            </div>
+
+            <div class="local-timer-bar-bg">
+                <div class="local-timer-bar" id="local-timer-bar"></div>
+            </div>
+
+            <div class="local-problem-area">
+                <div class="local-problem" id="local-problem">24 + 17 = ?</div>
+                <div class="local-options" id="local-options"></div>
+                <div class="local-feedback" id="local-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Mobile tabletop view -->
+        <div id="tabletop-game-view" class="hidden">
+            <div class="tabletop-container">
+                <!-- P1 half (normal orientation) -->
+                <div class="tabletop-half p1-half">
+                    <div class="tabletop-options" id="tt-options-top"></div>
+                    <div class="tabletop-player">
+                        <span class="tabletop-player-name" id="tt-p1-name">P1</span>
+                        <span class="tabletop-player-score" id="tt-p1-score">0</span>
+                        <span class="tabletop-player-streak" id="tt-p1-streak"></span>
+                    </div>
+                    <div class="tabletop-problem" id="tt-problem-top">24 + 17 = ?</div>
+                    <div class="tabletop-feedback" id="tt-feedback-top"></div>
+                    <div class="tabletop-timer-bg">
+                        <div class="tabletop-timer-bar" id="tt-timer-top"></div>
+                    </div>
+                </div>
+
+                <div class="tabletop-divider"></div>
+
+                <!-- P2 half (rotated 180°) -->
+                <div class="tabletop-half p2-half">
+                    <div class="tabletop-options" id="tt-options-bottom"></div>
+                    <div class="tabletop-player">
+                        <span class="tabletop-player-streak" id="tt-p2-streak"></span>
+                        <span class="tabletop-player-score" id="tt-p2-score">0</span>
+                        <span class="tabletop-player-name" id="tt-p2-name">P2</span>
+                    </div>
+                    <div class="tabletop-problem" id="tt-problem-bottom">24 + 17 = ?</div>
+                    <div class="tabletop-feedback" id="tt-feedback-bottom"></div>
+                    <div class="tabletop-timer-bg">
+                        <div class="tabletop-timer-bar" id="tt-timer-bottom"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results -->
+    <section id="mode-results" class="screen hidden">
+        <h1 class="results-title">Game Over</h1>
+        <div class="local-results-grid">
+            <div class="local-result-card" id="p1-result">
+                <span class="local-result-name">Player 1</span>
+                <span class="local-result-score">0</span>
+            </div>
+            <div class="local-result-card" id="p2-result">
+                <span class="local-result-name">Player 2</span>
+                <span class="local-result-score">0</span>
+            </div>
+        </div>
+        <div class="local-winner" id="local-winner"></div>
+        <div class="results-actions">
+            <button id="play-again-local-btn" class="btn btn-primary">Play Again</button>
+            <a href="/modes" class="btn btn-secondary">Change Mode</a>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="/static/js/modes.js"></script>
+{% endblock %}

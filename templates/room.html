@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Room {{ room_id }} - PolyMath{% endblock %}
+
+{% block extra_head %}
+<meta name="room-id" content="{{ room_id }}">
+{% endblock %}
+
+{% block content %}
+<div id="game-app">
+    <!-- Lobby Screen -->
+    <section id="lobby-screen" class="screen">
+        <div class="room-header">
+            <h1>Room <span class="room-code" id="display-room-code">{{ room_id }}</span></h1>
+            <p class="room-status">Waiting for players...</p>
+        </div>
+
+        <div class="lobby-grid">
+            <div class="players-panel">
+                <h2>Players</h2>
+                <ul id="player-list" class="player-list"></ul>
+            </div>
+
+            <div class="settings-panel">
+                <h2>Game Settings</h2>
+                <div class="settings-readout">
+                    <div class="setting-row">
+                        <span class="setting-label">Rounds</span>
+                        <span class="setting-value" id="setting-rounds">-</span>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Time per Question</span>
+                        <span class="setting-value" id="setting-time">-</span>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Difficulty</span>
+                        <span class="setting-value" id="setting-difficulty">-</span>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Timer</span>
+                        <span class="setting-value" id="setting-timer">-</span>
+                    </div>
+                </div>
+                <button id="start-game-btn" class="btn btn-primary btn-large" style="display:none;">Start Game</button>
+                <p id="host-hint" class="hint">Only the host can start the game.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Screen -->
+    <section id="game-screen" class="screen hidden">
+        <div class="game-header">
+            <div class="round-info">
+                <span class="round-label">Round</span>
+                <span class="round-number" id="round-number">1</span>
+                <span class="round-total" id="round-total">/ 10</span>
+            </div>
+            <div class="timer-container" id="timer-container">
+                <div class="timer-bar-bg">
+                    <div class="timer-bar" id="timer-bar"></div>
+                </div>
+                <span class="timer-text" id="timer-text">20</span>
+            </div>
+        </div>
+
+        <div class="game-layout">
+            <div class="problem-area">
+                <div class="problem-text" id="problem-text"></div>
+                <div class="problem-diagram" id="problem-diagram"></div>
+                <div class="options-grid" id="options-grid"></div>
+                <div class="answer-feedback" id="answer-feedback"></div>
+            </div>
+
+            <div class="scoreboard-area">
+                <h3>Live Scoreboard</h3>
+                <ul id="live-scoreboard" class="scoreboard-list"></ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Screen -->
+    <section id="results-screen" class="screen hidden">
+        <h1 class="results-title">Game Over</h1>
+        <div class="podium" id="podium"></div>
+        <div class="final-scores">
+            <h2>Final Standings</h2>
+            <ul id="final-scoreboard" class="scoreboard-list"></ul>
+        </div>
+        <div class="results-actions">
+            <a href="/" class="btn btn-primary">Back to Home</a>
+            <button id="play-again-btn" class="btn btn-secondary">Play Again</button>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="/static/js/game.js"></script>
+{% endblock %}
