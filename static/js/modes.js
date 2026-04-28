@@ -272,12 +272,12 @@
             const desktopBtn = createOptionButton(opt, idx, 0); // 0 = any player on desktop
             els.options.appendChild(desktopBtn);
 
-            // Mobile tabletop - P1 buttons
-            const topBtn = createOptionButton(opt, idx, 1);
+            // Mobile tabletop - P2 buttons (top half)
+            const topBtn = createOptionButton(opt, idx, 2);
             els.ttOptionsTop.appendChild(topBtn);
 
-            // Mobile tabletop - P2 buttons
-            const bottomBtn = createOptionButton(opt, idx, 2);
+            // Mobile tabletop - P1 buttons (bottom half)
+            const bottomBtn = createOptionButton(opt, idx, 1);
             els.ttOptionsBottom.appendChild(bottomBtn);
         });
     }

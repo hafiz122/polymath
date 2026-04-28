@@ -1216,7 +1216,7 @@ body {
         width: 100%;
     }
 
-    .tabletop-half.p2-half {
+    .tabletop-half.p1-half {
         transform: rotate(180deg);
     }
 
