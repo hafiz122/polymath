@@ -1230,21 +1230,22 @@ body {
     .tabletop-player {
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 0.75rem;
         width: 100%;
-        justify-content: space-between;
     }
 
     .tabletop-player-name {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.04em;
         color: var(--text-secondary);
+        min-width: 3.5ch;
     }
 
-    .tabletop-player-score {
-        font-size: 1.5rem;
+    .tabletop-points {
+        font-size: 1.4rem;
         font-weight: 700;
         color: var(--accent);
         line-height: 1;
@@ -1253,6 +1254,8 @@ body {
     .tabletop-player-streak {
         font-size: 0.75rem;
         color: var(--accent);
+        min-width: 3.5ch;
+        text-align: right;
     }
 
     .tabletop-timer-bg {
